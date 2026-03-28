@@ -3,27 +3,27 @@ import time
 import random 
 import requests
 narrator=win32com.client.Dispatch("SAPI.SpVoice")
-rules = [
-    "Welcome to the Game",
-    "Can You Survive?",
-    "Rules for survival in the game:",
-    "Rule Number 1",
-    "You start with a list of items that contains precious objects, poison, dangerous animals and many other things",
-    "Rule Number 2",
-    "Each turn, you are asked to remove an item:",
-    "If you removed the correct item, you clear that round.",
-    "But if you removed the wrong item, you lose, and whenever you lose, you lose one life to clear that dungeon",
-    "Remember the system asks you to remove the item by pure luck, by a condition, or by logic.",
-    "If you pass every round and survive all stages, you win this game",
-    "But if you lose all your lives, you lose the game and the game ends."
-]
-def speak_and_print(text):
-    print(text)
-    narrator.Speak(text)
+# rules = [
+#     "Welcome to the Game",
+#     "Can You Survive?",
+#     "Rules for survival in the game:",
+#     "Rule Number 1",
+#     "You start with a list of items that contains precious objects, poison, dangerous animals and many other things",
+#     "Rule Number 2",
+#     "Each turn, you are asked to remove an item:",
+#     "If you removed the correct item, you clear that round.",
+#     "But if you removed the wrong item, you lose, and whenever you lose, you lose one life to clear that dungeon",
+#     "Remember the system asks you to remove the item by pure luck, by a condition, or by logic.",
+#     "If you pass every round and survive all stages, you win this game",
+#     "But if you lose all your lives, you lose the game and the game ends."
+# ]
+# def speak_and_print(text):
+#     print(text)
+#     narrator.Speak(text)
 
-for r in rules:
-    speak_and_print(r)
-    time.sleep(0.25)
+# for r in rules:
+#     speak_and_print(r)
+#     time.sleep(0.1)
  
 
 url="https://api.adviceslip.com/advice"
@@ -34,18 +34,33 @@ def get_advice():
             advice = response.json()['slip']['advice']
             return advice
         else:
-            return "Could not fetch advice at the moment."
+            return ""
     except Exception as e:
         return f"An error occurred: {e}"
     
 for i in range(10):
-    advice_dict={f"advice_{i}" : get_advice()}
-    # advice=int(input(get_advice()))
+    advice_dict=get_advice()
+    word_splitter=advice_dict.split()
+        
+random_word_picker=random.sample(word_splitter,10) # random.sample return the k length of string or list whatever the format is and the first is population index
 
-    
-    
-# for i in range(10):
-    # advice=int(input(get_advice()))
-    # advice_dict=
+print(random_word_picker)
 
-    print(advice_dict)
+labels=["precious","poison","neutral","danger","necessary"]
+
+def assign(word,element):
+
+    for w in labels:
+        survival_dict={f"{word}:{element}"}
+
+    return survival_dict
+
+print(assign(random_word_picker,labels)) 
+
+
+
+
+
+
+
+
