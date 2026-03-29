@@ -2,7 +2,7 @@ import win32com.client
 import time
 import random 
 import requests
-narrator=win32com.client.Dispatch("SAPI.SpVoice")
+# narrator=win32com.client.Dispatch("SAPI.SpVoice")
 # rules = [
 #     "Welcome to the Game",
 #     "Can You Survive?",
@@ -26,36 +26,38 @@ narrator=win32com.client.Dispatch("SAPI.SpVoice")
 #     time.sleep(0.1)
  
 
-url="https://api.adviceslip.com/advice"
-def get_advice():
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            advice = response.json()['slip']['advice']
-            return advice
-        else:
-            return ""
-    except Exception as e:
-        return f"An error occurred: {e}"
+# url="https://api.adviceslip.com/advice"
+# def get_advice():
+#     try:
+#         response = requests.get(url)
+#         if response.status_code == 200:
+#             advice = response.json()['slip']['advice']
+#             return advice
+#         else:
+#             return "Stay safe and be careful"
+#     except Exception as e:
+#         return f"Watch your step.{e}"
     
-for i in range(10):
-    advice_dict=get_advice()
-    word_splitter=advice_dict.split()
+# for i in range(10):
+#     advice=get_advice()
         
-random_word_picker=random.sample(word_splitter,10) # random.sample return the k length of string or list whatever the format is and the first is population index
+#     word_splitter=advice.split()
+#     splitted_word=[w.strip(",./?:;'-_|") for w in word_splitter]
 
-print(random_word_picker)
+#     num_to_pick=min(10,len(splitted_word))
+# random_word_picker=random.sample(splitted_word,num_to_pick) # random.sample return the k length of string or list whatever the format is and the first is population index
 
-labels=["precious","poison","neutral","danger","necessary"]
+# labels=["precious","poison","neutral","danger","necessary","treasure"]
 
-def assign(word,element):
+# survival_dict={}
+# print("--SURVIVAL ITEMS--")
+# for word in random_word_picker:
+#     survival_dict[word]=random.choice(labels)
 
-    for w in labels:
-        survival_dict={f"{word}:{element}"}
+# print(survival_dict)
+# player=input("Enter your choosen word: ")
 
-    return survival_dict
 
-print(assign(random_word_picker,labels)) 
 
 
 
