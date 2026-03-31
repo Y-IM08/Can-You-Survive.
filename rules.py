@@ -28,4 +28,3 @@ def speak_and_print(text):
 for r in rules:
     speak_and_print(r)
     time.sleep(0.1)
- 
