@@ -6,27 +6,27 @@ import requests
 #rules.py
 
 narrator=win32com.client.Dispatch("SAPI.SpVoice")
-# rules = [
-#     "Welcome to the Game",
-#     "Can You Survive?",
-#     "Rules for survival in the game:",
-#     "Rule Number 1",
-#     "You start with a list of items that contains precious objects, poison, dangerous animals and many other things",
-#     "Rule Number 2",
-#     "Each turn, you are asked to remove an item:",
-#     "If you removed the correct item, you clear that round.",
-#     "But if you removed the wrong item, you lose, and whenever you lose, you lose one life to clear that dungeon",
-#     "Remember the system asks you to remove the item by pure luck, by a condition, or by logic.",
-#     "If you pass every round and survive all stages, you win this game",
-#     "But if you lose all your lives, you lose the game and the game ends."
-# ]
+rules = [
+    "Welcome to the Game",
+    "Can You Survive?",
+    "Rules for survival in the game:",
+    "Rule Number 1",
+    "You start with a list of items that contains precious objects, poison, dangerous animals and many other things",
+    "Rule Number 2",
+    "Each turn, you are asked to remove an item:",
+    "If you removed the correct item, you clear that round.",
+    "But if you removed the wrong item, you lose, and whenever you lose, you lose one life to clear that dungeon",
+    "Remember the system asks you to remove the item by pure luck, by a condition, or by logic.",
+    "If you pass every round and survive all stages, you win this game",
+    "But if you lose all your lives, you lose the game and the game ends."
+]
 def speak_and_print(text):
     print(text)
     narrator.Speak(text)
 
-# for r in rules:
-#     speak_and_print(r)
-#     time.sleep(0.1)
+for r in rules:
+    speak_and_print(r)
+    time.sleep(0.1)
  
 # survival_dict.py
 url="https://api.adviceslip.com/advice"
@@ -61,7 +61,7 @@ print(survival_dict)
 
 #player_item.py
 # for i in range(3)
-player_choice=input("/n Pick an word to remove from your dictionary to go to next level: ").strip().lower()
+player_choice=input("\n Pick an word to remove from your dictionary to go to next level: ").strip().lower()
 if player_choice in survival_dict:
     status= survival_dict[player_choice]
     print(f"You picked : {player_choice}")      
@@ -84,7 +84,6 @@ if player_choice in survival_dict:
 
     else:
         speak_and_print(f"Your Choosen item {player_choice} is not present.")
-
 
 
 
