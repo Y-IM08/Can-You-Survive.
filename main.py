@@ -29,65 +29,89 @@ for r in rules:
     time.sleep(0.1)
  
 # survival_dict.py
-url="https://api.adviceslip.com/advice"
-def get_advice():
-    try:
-        response = requests.get(url)
-        if response.status_code == 200:
-            advice = response.json()['slip']['advice']
-            return advice
-        else:
-            return "Stay safe and be careful"
-    except Exception as e:
-        return f"Watch your step.{e}"
-    
-for i in range(10):
-    advice=get_advice()
-        
-    word_splitter=advice.split()
-    splitted_word=[w.strip(",./?:;'-_|") for w in word_splitter]
-
-    num_to_pick=min(10,len(splitted_word))
-random_word_picker=random.sample(splitted_word,num_to_pick) # random.sample return the k length of string or list whatever the format is and the first is population index
-
 labels=["precious","poison","neutral","danger","necessary","treasure"]
 
-survival_dict={}
-print("--SURVIVAL ITEMS--")
-for word in random_word_picker:
-    survival_dict[word]=random.choice(labels)
+def startgame():
+    playing=True
+    while playing :
+        url="https://api.adviceslip.com/advice"
+        def get_advice():
+            try:
+                response = requests.get(url)
+                if response.status_code == 200:
+                    advice = response.json()['slip']['advice']
+                    return advice
+                else:
+                    return "Stay safe and be careful"
+            except Exception as e:
+                return f"Watch your step.{e}"
+        
+        for i in range(10):
+            advice=get_advice()
+                
+            word_splitter=advice.split()
+            splitted_word=[w.strip(",./?:;'-_|") for w in word_splitter]
+        
+            num_to_pick=min(10,len(splitted_word))
+        random_word_picker=random.sample(splitted_word,num_to_pick) # random.sample return the k length of string or list whatever the format is and the first is population index
+        
+        survival_dict={}
+        print("--SURVIVAL ITEMS--")
+        for word in random_word_picker:
+            survival_dict[word]=random.choice(labels)
+        
+        print(survival_dict)
+        
+        #player_item.py
+        live = 3
+        score =0
+        speak_and_print(f"You have {live} lives.")
+        speak_and_print(f"Play Wisely.")
+        
+        for i in live (4):
+            if i > 0 :
+                speak_and_print(f"Game Over! You have lost your all lives.")
+                break 
+            
+                player_choice=input("\nPick an word to remove from your dictionary to go to next level: ").strip().lower()
+                if player_choice in survival_dict:
+                    status= survival_dict[player_choice]
+                    speak_and_print(f"You picked : {player_choice}")      
+                    speak_and_print(f"This item in {player_choice} is {status} removed from survival_dict")
+                
+                    if status in ["poison","danger"]:
+                        speak_and_print(f"Since you have choosen the {status}, your life decreases by -1.")
+                        live-=1
+                        speak_and_print(f"Choose next time wisely.")
+        
+                    elif status in ["precious","treasure"]:
+                        speak_and_print(f"Since you have choosen the {status}, your score increases by +50.")
+                        score+=50
+                        speak_and_print("Good! keep it up.")
+                
+                    elif status in ["neutal"]:
+                        speak_and_print("You are safe this time.")
+                
+                    elif status in ["necessary"]:
+                        speak_and_print(f"You Picked {status} item this time.")
+                        speak_and_print(f"Do not plpick it again otherwise you lose your life.") 
+        
+                
+                    else:
+                        speak_and_print(f"Your Choosen item {player_choice} is not present.")
+                
+                    del  survival_dict[player_choice]  
+        
+                else:
+                    speak_and_print("Congratulations !! You have cleared the Dungeon.")
+    
+        
+        print("Wanna Play Again ?")
+        restart=input("\nEnter to play again: (Yes or No)").strip().lower()
+        if restart!= "yes":
+            speak_and_print("Thank You for Playing .\nCome Again To Play.")
 
-print(survival_dict)
-
-#player_item.py
-# for i in range(3)
-player_choice=input("\n Pick an word to remove from your dictionary to go to next level: ").strip().lower()
-if player_choice in survival_dict:
-    status= survival_dict[player_choice]
-    print(f"You picked : {player_choice}")      
-    print(f"This item in {player_choice} is {status} removed from survival_dict")
-
-    if status in ["poison","danger"]:
-        speak_and_print(f"Since you have choosen the {status}, your life decreases by -1.")
-        speak_and_print(f"Choose next time wisely.")
-
-    elif status in ["precious","treasure"]:
-        speak_and_print(f"Since you have choosen the {status}, your score increases by +50.")
-        speak_and_print("Good! keep it up.")
-
-    elif status in ["neutal"]:
-        speak_and_print("You are safe this time.")
-
-    elif status in ["necessary"]:
-        speak_and_print(f"You Picked {status} item this time.")
-        speak_and_print(f"Do not pick it again otherwise you lose your life.") 
-
-    else:
-        speak_and_print(f"Your Choosen item {player_choice} is not present.")
-
-
-
-
-
-
+# startgame()
+            
+                  
 
